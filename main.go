@@ -5,23 +5,17 @@ import (
 	"os"
 )
 
-
 func main() {
 	executeAmanar()
 }
 
-func processVaultAddress(githubToken string, ce AmanarConfigurationElement) {
+func processVaultAddress(token string, ce AmanarConfigurationElement) {
 	log.Printf("\n\n\n\n =========================== [VAULT ADDRESS %s] =========================== \n\n", ce.VaultAddress)
 
 	ghc := &VaultGithubAuthClient{
-		GithubToken: githubToken,
 		VaultAddress: ce.VaultAddress,
 	}
-	err := ghc.loginWithGithub()
-	if err != nil {
-		log.Fatalf("[GITHUB AUTH] Could not log in with Github: %s", err)
-		return
-	}
+	ghc.loginWithToken(token)
 
 	for _, configItem := range ce.VaultConfiguration {
 		secret, err := ghc.getCredential(configItem.VaultPath, configItem.VaultRole)
@@ -59,13 +53,13 @@ func executeAmanar() {
 		return
 	}
 
-	githubToken := os.Getenv("GITHUB_TOKEN")
-	if githubToken == "" {
-		log.Fatalln("[GITHUB AUTH] Please provide a valid GitHub token as the environment variable GITHUB_TOKEN so we can fetch new credentials.")
+	token := os.Getenv("VAULT_TOKEN")
+	if token == "" {
+		log.Fatalln("[AUTH] Please provide a valid Vault token as the environment variable VAULT_TOKEN.")
 		return
 	}
 
 	for _, configurationElement := range configurationElements {
-		processVaultAddress(githubToken, configurationElement)
+		processVaultAddress(token, configurationElement)
 	}
 }

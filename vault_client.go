@@ -9,15 +9,14 @@ import (
 	"github.com/hashicorp/vault/api"
 )
 
-
 type GithubLoginBody struct {
 	Token string `json:"token"`
 }
 
 type VaultGithubAuthClient struct {
-	GithubToken string
+	GithubToken  string
 	VaultAddress string
-	vaultClient *api.Client
+	vaultClient  *api.Client
 }
 
 func (vc *VaultGithubAuthClient) loginWithGithub() error {
@@ -47,6 +46,19 @@ func (vc *VaultGithubAuthClient) loginWithGithub() error {
 	}
 
 	c.SetToken(secret.Auth.ClientToken)
+	vc.vaultClient = c
+
+	return nil
+}
+
+func (vc *VaultGithubAuthClient) loginWithToken(token string) error {
+	c, err := api.NewClient(api.DefaultConfig())
+	if err != nil {
+		return err
+	}
+	c.SetAddress(vc.VaultAddress)
+
+	c.SetToken(token)
 	vc.vaultClient = c
 
 	return nil

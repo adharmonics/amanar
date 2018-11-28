@@ -6,7 +6,7 @@ A tool to programmatically insert refreshed HashiCorp Vault credentials into des
 **You should create backup copies of all configuration files before using this tool.**
 
 ## Supported Output Applications and Formats
-- Datagrip (tested with 2017.2)
+- Datagrip (tested with 2018.2)
 - Intellij IDEA Databases (in theory)
 - IntelliJ Run Configurations (tested with 2017.2)
 - Querious 2
@@ -19,7 +19,7 @@ A tool to programmatically insert refreshed HashiCorp Vault credentials into des
 
 The usage of this program depends on two environment variables:
 
-- *GITHUB_TOKEN*, specifying the personal Github token which will allow refreshed Vault credentials to be retrieved
+- *VAULT_TOKEN*, specifying the Vault token (~/.vault-token) which will allow refreshed database credentials to be retrieved
 - *CONFIG_FILEPATH*, specifying the location of your configuration file
 
 The program makes certain assumptions about the state of your keychain and configuration files. It cannot be used to create new keychain or configuration entries, only update them. In addition, there should be only one keychain entry per unique identifier (usually the database UUID) so that the correct keychain item to update can be selected without reference to a particular user account.

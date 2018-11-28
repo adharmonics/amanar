@@ -1,0 +1,19 @@
+[
+  {
+    "vault_address": "https://vault.staging.evqt.net",
+    "vault_configuration": [
+      {
+        "vault_path": "database",
+        "vault_role": "vault-role",
+        "configurables": {
+          "intellij_datasources": [
+            {
+              "datasource_file_path": "/Users/myoung/Library/Preferences/DataGrip2018.2/projects/vault-managed-databases/.idea/dataSources.local.xml",
+              "database_uuid": "8c4fd81d-eb93-429f-b9f7-c4cafb3c6de2"
+            }
+          ]
+        }
+      }
+    ]
+  }
+]
